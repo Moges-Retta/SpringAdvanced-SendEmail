@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class DefaultSporterService implements SporterService{
     private final SportArtikelRepository repository;
 
@@ -16,6 +17,7 @@ public class DefaultSporterService implements SporterService{
     }
 
      @Override
+     @Transactional
     public List<Sporter> findAll() {
         return repository.findAll();
     }

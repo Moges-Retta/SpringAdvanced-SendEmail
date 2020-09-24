@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 
 @Component
-public class DefaultLidMailing implements LidMailing{
+public class DefaultLidMailing implements LidMailing {
     private final JavaMailSender sender;
 
     public DefaultLidMailing(JavaMailSender sender) {
@@ -22,14 +22,12 @@ public class DefaultLidMailing implements LidMailing{
     @Override
     public void stuurEmail(Sporter sporter, ArtikelGemaakt gemaakt) {
         try {
-            var message = sender.createMimeMessage();
-            var helper = new SimpleMailMessage();
-            helper.setTo(sporter.getEmailadres());
-            helper.setSubject("Geregistreerd");
-            helper.setText("Er is een nieuw artikel:" + gemaakt.getNaam());
+            var message = new SimpleMailMessage();
+            message.setTo(sporter.getEmailadres());
+            message.setSubject("Geregistreerd");
+            message.setText("Er is een nieuw artikel:" + gemaakt.getNaam());
             sender.send(message);
-        }
-        catch (MailException ex) {
+        } catch (MailException ex) {
             throw new KanMailNietZendenException(ex);
         }
     }
